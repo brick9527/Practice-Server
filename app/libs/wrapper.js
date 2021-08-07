@@ -1,3 +1,5 @@
+'use strict';
+
 function wrapper(func) {
   return `
     const _ = require('lodash');
