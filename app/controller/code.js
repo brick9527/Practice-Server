@@ -19,7 +19,11 @@ class CodeController extends Controller {
 
     const data = execFileSync('node', [ filePath ]);
 
-    fs.unlink(filePath);
+    fs.unlink(filePath, err => {
+      if (err) {
+        console.error(err);
+      }
+    });
 
     ctx.body = data.toString();
   }
