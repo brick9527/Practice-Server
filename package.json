@@ -11,7 +11,8 @@
     "egg": "^2.15.1",
     "egg-scripts": "^2.11.0",
     "lodash": "^4.17.21",
-    "moment": "^2.29.1"
+    "moment": "^2.29.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "autod": "^3.0.1",

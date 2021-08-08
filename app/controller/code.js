@@ -1,6 +1,10 @@
 'use strict';
 
 const Controller = require('egg').Controller;
+const { execFileSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
+const { v4: uuid } = require('uuid');
 
 const wrapper = require('../libs/wrapper');
 
@@ -10,12 +14,14 @@ class CodeController extends Controller {
     const { body } = ctx.request;
     const { code } = body;
 
-    // eslint-disable-next-line no-eval
-    const result = eval(wrapper(code));
+    const filePath = path.join(__dirname, `../../temp/js_${uuid()}.js`);
+    fs.writeFileSync(filePath, wrapper(code), { flag: 'w+', encoding: 'utf-8' });
 
-    console.log('result = ', result);
+    const data = execFileSync('node', [ filePath ]);
 
-    ctx.body = result;
+    fs.unlink(filePath);
+
+    ctx.body = data.toString();
   }
 }
 
