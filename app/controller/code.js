@@ -17,17 +17,19 @@ class CodeController extends Controller {
     const filePath = path.join(config.templatePath, `${uuid()}.js`);
     fs.writeFileSync(filePath, wrapper(code), { flag: 'w+', encoding: 'utf-8' });
 
-    const data = execFileSync('node', [ filePath ]);
-
-    fs.unlink(filePath, err => {
-      if (err) {
-        console.error(err);
-      }
-    });
-
-    console.log(data);
-
-    ctx.body = data.toString();
+    try {
+      const data = execFileSync('node', [ filePath ]);
+      ctx.body = data.toString();
+    } catch (err) {
+      const simplifyErr = err.message.split('\n').slice(5, 6).join('\n');
+      ctx.body = simplifyErr;
+    } finally {
+      fs.unlink(filePath, err => {
+        if (err) {
+          console.error(err);
+        }
+      });
+    }
   }
 }
 

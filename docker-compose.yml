@@ -1,0 +1,26 @@
+version: '3.1'
+services:
+  server:
+    image: practice-server:0.1.0
+    container_name: server
+    restart: always
+    ports:
+      - 127.0.0.1:3000:7001
+    volumes:
+      - ./server/template:/template
+      - ./server/logs:/practice-server/logs
+      - ./server/config.yml:/practice-server/config.yml
+    networks: 
+      - privateNetwork
+  ui:
+    image: practice-ui:0.1.0
+    container_name: ui
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks: 
+      - privateNetwork
+networks:
+  privateNetwork:
+    external: false

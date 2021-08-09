@@ -2,15 +2,19 @@
 
 'use strict';
 
-const _ = require('lodash');
 const path = require('path');
+const fs = require('fs');
+const { load } = require('js-yaml');
+const objectMerge = require('fd-object-merge');
 
 const sampleConfig = require('./config.sample');
+
+// 自动获取本地配置
 let localConfig = {};
-try {
-  localConfig = require('./config.local');
-} catch (err) {
-  // 静默处理
+const localConfigPath = path.join(__dirname, '../config.yml');
+if (fs.existsSync(localConfigPath)) {
+  const configData = fs.readFileSync(localConfigPath, { encoding: 'utf-8' });
+  localConfig = load(configData) || {};
 }
 
 /**
@@ -21,15 +25,17 @@ module.exports = appInfo => {
    * built-in config
    * @type {Egg.EggAppConfig}
    **/
-  const config = exports = {
+  const config = (exports = {
     security: {
       csrf: {
         enable: false,
       },
     },
-  };
+  });
 
-  const customeConfig = _.defaults(localConfig, sampleConfig);
+  const customeConfig = objectMerge(localConfig, sampleConfig);
+
+  console.log(customeConfig);
 
   config.keys = appInfo.name + '_1628326593647_4881';
 
@@ -44,7 +50,12 @@ module.exports = appInfo => {
       },
     },
     // 代码模板文件存储位置
-    templatePath: path.join(__dirname, '../', customeConfig.server.mode === 'prod' ? '../' : '', customeConfig.code.folderName),
+    templatePath: path.join(
+      __dirname,
+      '../',
+      customeConfig.server.mode === 'prod' ? '../' : '',
+      customeConfig.code.folderName
+    ),
   };
 
   return {
