@@ -29,14 +29,12 @@ ENV PATH=$PATH:/practice-server/node-v14.17.4-linux-x64/bin
 RUN node --version && npm --version
 
 # 安装项目依赖
-RUN set -x \
-  && npm i --production
+RUN npm i --production
 
 WORKDIR /template
 
 COPY template /template/
-RUN set -x \
-  && npm i --production
+RUN npm i --production
 
 WORKDIR /practice-server
 

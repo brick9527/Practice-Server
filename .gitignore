@@ -13,4 +13,4 @@ run/
 typings/
 .nyc_output/
 template/*.js
-config/config.local.js
+config.yml
