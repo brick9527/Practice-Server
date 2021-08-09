@@ -5,8 +5,13 @@
 const _ = require('lodash');
 const path = require('path');
 
-const localConfig = require('./config.local');
 const sampleConfig = require('./config.sample');
+let localConfig = {};
+try {
+  localConfig = require('./config.local');
+} catch (err) {
+  // 静默处理
+}
 
 /**
  * @param {Egg.EggAppInfo} appInfo app info
@@ -41,8 +46,6 @@ module.exports = appInfo => {
     // 代码模板文件存储位置
     templatePath: path.join(__dirname, '../', customeConfig.server.mode === 'prod' ? '../' : '', customeConfig.code.folderName),
   };
-
-  console.log(__dirname, customeConfig.server.mode, userConfig.templatePath);
 
   return {
     ...config,
