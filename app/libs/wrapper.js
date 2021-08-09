@@ -13,7 +13,7 @@ function wrapper(func) {
       (function() {
         ${func}
 
-        console.log('执行耗时:', Date.now() - startTime, 'ms');
+        console.log('\\n[ 执行耗时:', Date.now() - startTime, 'ms ]');
       })()
     }
 

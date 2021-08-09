@@ -10,11 +10,11 @@ const wrapper = require('../libs/wrapper');
 
 class CodeController extends Controller {
   async run() {
-    const { ctx } = this;
+    const { ctx, config } = this;
     const { body } = ctx.request;
     const { code } = body;
 
-    const filePath = path.join(__dirname, `../../temp/js_${uuid()}.js`);
+    const filePath = path.join(config.templatePath, `${uuid()}.js`);
     fs.writeFileSync(filePath, wrapper(code), { flag: 'w+', encoding: 'utf-8' });
 
     const data = execFileSync('node', [ filePath ]);
@@ -24,6 +24,8 @@ class CodeController extends Controller {
         console.error(err);
       }
     });
+
+    console.log(data);
 
     ctx.body = data.toString();
   }
