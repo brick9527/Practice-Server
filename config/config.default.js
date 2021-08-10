@@ -35,8 +35,6 @@ module.exports = appInfo => {
 
   const customeConfig = objectMerge(localConfig, sampleConfig);
 
-  console.log(customeConfig);
-
   config.keys = appInfo.name + '_1628326593647_4881';
 
   config.middleware = [];

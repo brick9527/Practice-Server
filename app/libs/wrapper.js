@@ -2,7 +2,17 @@
 
 function wrapper(func) {
   return `
+    // 引入包
     const _ = require('lodash');
+    const moment = require('moment');
+    const dayjs = require('dayjs');
+    const uuid = require('uuid');
+
+    // 覆盖关键函数
+    require = function() {
+      return {};
+    }
+
 
     const startTime = Date.now()
 
