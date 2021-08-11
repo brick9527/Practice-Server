@@ -9,10 +9,13 @@ function wrapper(func) {
     const uuid = require('uuid');
 
     // 覆盖关键函数
-    require = function() {
+    require = function () {
       return {};
     }
 
+    const eval = function (...args) {
+      return args;
+    }
 
     const startTime = Date.now()
 
