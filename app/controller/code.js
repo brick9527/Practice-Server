@@ -7,8 +7,10 @@ const path = require('path');
 const { v4: uuid } = require('uuid');
 
 const wrapper = require('../libs/wrapper');
+const { CODE_TEMPLATE_HEADER } = require('../const/code');
 
 class CodeController extends Controller {
+  // 运行代码
   async run() {
     const { ctx, config } = this;
     const { body } = ctx.request;
@@ -21,8 +23,9 @@ class CodeController extends Controller {
       const data = execFileSync('node', [ filePath ]);
       ctx.body = data.toString();
     } catch (err) {
-      const simplifyErr = err.message.split('\n').slice(5, 6).join('\n');
-      ctx.body = simplifyErr;
+      const simplifyErr = err.message.split('\n').filter(content => /.+?Error: /.test(content));
+      ctx.body = simplifyErr.join('\n') + '\n';
+      ctx.logger.error(err);
     } finally {
       fs.unlink(filePath, err => {
         if (err) {
@@ -30,6 +33,13 @@ class CodeController extends Controller {
         }
       });
     }
+  }
+
+  // 获取引用第三方模块的相关代码
+  async getRequireCode() {
+    const { ctx } = this;
+
+    ctx.body = { code: CODE_TEMPLATE_HEADER };
   }
 }
 

@@ -11,6 +11,8 @@ run/
 typings/
 .nyc_output/
 template/*.js
+template/node_modules
 nginx.conf
 docker-compose.yml
 Dockerfile
+
