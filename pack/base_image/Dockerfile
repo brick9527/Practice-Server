@@ -2,7 +2,6 @@ FROM ubuntu:18.04
 
 LABEL author="brick9527<brick9527@foxmail.com>"
 LABEL name="practice_server_base"
-LABEL version="0.1.1"
 
 ENV DEBIAN_FRONTEND="noninteractive"
 

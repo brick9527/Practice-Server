@@ -1,6 +1,7 @@
 FROM registry.cn-hangzhou.aliyuncs.com/fdblogimages/practice-server-base:0.1.0
 
-LABEL Author="brick9527<brick9527@foxmail.com>"
+LABEL author="brick9527<brick9527@foxmail.com>"
+LABEL name="practice_server_base"
 
 USER root
 WORKDIR /practice-server
