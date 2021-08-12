@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build . -t practice-server:0.1.0
+docker build . -t registry.cn-hangzhou.aliyuncs.com/fdblogimages/practice-server:$1
