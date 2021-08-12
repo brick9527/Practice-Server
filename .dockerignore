@@ -15,4 +15,5 @@ template/node_modules
 nginx.conf
 docker-compose.yml
 Dockerfile
+.github
 
