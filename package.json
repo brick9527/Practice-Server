@@ -1,6 +1,6 @@
 {
   "name": "Practice-Server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A practice server",
   "private": true,
   "egg": {

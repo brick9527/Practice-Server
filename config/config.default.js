@@ -35,12 +35,18 @@ module.exports = appInfo => {
 
   const customeConfig = objectMerge(localConfig, sampleConfig);
 
+  config.logger = {
+    dir: path.join(__dirname, '../logs'), // 日志目录
+    consoleLevel: customeConfig.server.mode === 'prod' ? 'INFO' : 'DEBUG', // 终端输出等级
+    disableConsoleAfterReady: false, // 打开日志终端输出
+  };
+
   config.keys = appInfo.name + '_1628326593647_4881';
 
-  config.middleware = [];
+  config.middleware = [ 'log' ];
 
   const userConfig = {
-    // myAppName: 'egg',
+    myAppName: customeConfig.server.name,
     cluster: {
       listen: {
         port: customeConfig.server.port,
