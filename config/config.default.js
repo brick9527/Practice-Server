@@ -21,19 +21,18 @@ if (fs.existsSync(localConfigPath)) {
  * @param {Egg.EggAppInfo} appInfo app info
  */
 module.exports = appInfo => {
-  /**
-   * built-in config
-   * @type {Egg.EggAppConfig}
-   **/
+  const customeConfig = objectMerge(localConfig, sampleConfig);
+
   const config = (exports = {
     security: {
       csrf: {
         enable: false,
       },
     },
+
+    ...customeConfig,
   });
 
-  const customeConfig = objectMerge(localConfig, sampleConfig);
 
   config.logger = {
     dir: path.join(__dirname, '../logs'), // 日志目录
