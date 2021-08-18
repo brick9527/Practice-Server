@@ -6,6 +6,7 @@ const path = require('path');
 const _ = require('lodash');
 
 const packageJSON = require('../../package.json');
+const { CODE_TEMPLATE_HEADER } = require('../const/code');
 
 class SystemController extends Controller {
   // 获取系统配置
@@ -23,6 +24,7 @@ class SystemController extends Controller {
       publicKey: config.server.RSAKeyPair.publicKey,
       version: packageJSON.version,
       codeTemplatePackage: _.get(codeTemplatePackageJSONFileData, 'dependencies', {}),
+      codeTemplateHeader: CODE_TEMPLATE_HEADER,
     };
   }
 }
